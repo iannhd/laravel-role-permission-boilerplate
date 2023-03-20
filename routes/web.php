@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
  
@@ -25,6 +26,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 Route::middleware('role:admin')->get('/dashboard', function(){
-    dd(Auth::user()->hasRole('admin'));
+    // dd(Auth::user()->hasRole('admin'));
     return 'Dashboard';
 })->name('dashboard');
+
+Route::controller(RoleController::class)->group(function(){
+    Route::get('/roles', 'index');
+});
